@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <button id="btn" type="button" class="btn btn-success mt-2">Hacer peticion</button>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6">
+                <h1>Prueba de ajax</h1>
+                <p>este es un ejercicio en el que se muestra el uso de ajax
+                    par reaslizar peticiones asincronas, y cargar la respuesta del servidor
+                    en una parte especifica de la pagina sin interrumpir la ejecucion de la misma
+                </p>
+            </div>
+            <div class="col-xs-6 col-sm-6">
+                <h1>Contenido de la respuesta a la peticion ajax</h1>
+                <div id="Response"></div>
+            </div>
+        </div>
+
+
+
+        <button id="btnEnviar" type="button" class="btn btn-primary mt-2">mostrar tabla</button>
+        <h1>mostrando la tabla con ajax</h1>
+        <div id="respuesta"></div>
+
+
+
+
+
+
+
+    </div>
+    <script>
+        $(document).ready(inicio);
+
+        function inicio() {
+
+            $("#btn").click(peticion);
+        }
+        function peticion() {
+            $.ajax({
+                url: "/prueba3/vista2",
+                method: "Get",
+                data: null,
+                success: function (response) {
+                    $("#Response").html(response);
+                },
+                error: function (response) {
+                    alert("error:" + response);
+                }
+            });
+        }
+    </script>
+
+
+
+
+    <script>
+        $(document).ready(inicio1);
+
+        function inicio1() {
+
+            $("#btnEnviar").click(peticion1);
+        }
+        function peticion1() {
+            $.ajax({
+                url: "/prueba3/vista3",
+                method: "Get",
+                data: null,
+                success: function (response) {
+                    $("#respuesta").html(response);
+                },
+                error: function (response) {
+                    alert("error:" + response);
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

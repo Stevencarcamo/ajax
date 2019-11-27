@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>cuadrado</title>
+</head>
+<body>
+
+
+<input id ="num" type="number" placeholder="Digite un numero">
+<button id="btnCalcular">CALCULAR</button>
+<div id ="Resultado"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(inicio);
+	
+	function inicio(){
+		//programar el evento click del boton 
+		var boton= $("#btnCalcular");
+		boton.click(peticion)
+	}
+	//se realiza la peticion
+	function peticion(){
+		var valorInput=$("#num").val();
+		
+		$.ajax({
+			url:"/prueba/cuadrado",
+			method:"Get",
+			data:{num:valorInput},
+			success:procesar,
+			error:error
+			
+		});	
+	}
+	function procesar(response){
+		var div=$("#Resultado");
+		div.html("<h1>"+ response.res + "</h1>");
+		
+	}
+    function error(response){
+		alert("error en la peticion:"+response);
+	}
+</script>
+
+
+</body>
+</html>

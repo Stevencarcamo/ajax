@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquery</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: rgb(33, 127, 173);">
+
+ 
+    <div class="container" style="text-align: center;" >
+
+        <!-- Button to Open the Modal -->
+        <button style="float: right;" type="button" class="btn btn-info btn-lg" data-toggle="modal"
+            data-target="#myModal">
+            Nuevo
+        </button>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+
+                    <!-- Modal body -->
+
+                    <h4 class="modal-title" style="margin-top:20px;margin-bottom:20px;">Ingresar datos</h4>
+                   
+                        <section>
+                            <section class="form-group row">
+                                <label class="col-2">Id:</label>
+                                <input type="hidden" value="add" name="option">
+                                <input type="number" class="form-control col-9" id="id" name="id"> 
+                            <section class="form-group row">
+                                <label class="col-2">Nombre:</label>
+                                <input type="hidden" value="add" name="option">
+                                <input type="text" class="form-control col-9" id="nombre" name="nombre"placeholder="ingrese su nombre" required>
+                            </section>
+                            <section class="form-group row">
+                                <label class="col-2">Dirección:</label>
+                                <input type="hidden" value="add" name="option">
+                                <input type="text" class="form-control col-9" id="direccion" name="direccion" placeholder="ingrese su direccion" required>
+                            </section>
+                            <section class="form-group row">
+                                <label class="col-2">Telefono:</label>
+                                <input type="hidden" value="add" name="option">
+                                <input type="number" class="form-control col-9" id="telefono" name="telefono" placeholder="ingrese su telefono" required>
+                            </section>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button id="Guardar" type="button" class="btn btn-success"
+                                data-dismiss="modal">Guardar</button>
+                       
+                            </section>
+                        </section>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--/**************************************************************************************************************************************/-->
+
+<div class="container" style="text-align: center;">
+
+    <!-- The Modal -->
+    <div class="modal fade" id="delModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+              
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                       <h4 class="modal-title">¿Eliminar registro?</h4>
+
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                        <button id="Guardar" type="button" class="btn btn-primary" data-dismiss="modal">Si</button>
+
+                </div>
+
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container" style="margin-top: 50px;">
+    <h2 style="text-align: center; color: rgb(255, 255, 255); ">Registros</h2>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Id        </th>
+                <th>Nombre    </th>
+                <th>Direccion </th>
+                <th>Telefono  </th>
+                <th>Modificar </th>
+                <th>Eliminar  </th>
+            </tr>
+        </thead>
+        <tbody id="guardardatos">
+        </tbody>
+       </table>
+       </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(inicio);
+
+ 			
+            function inicio(){
+            	cargarDatos();
+            }
+            //metodo para cargar los datos con una peticion ajax
+            function cargarDatos(){
+            	//peticion ajax al back end 
+            	$.ajax({
+            		url:"/usuario/all",
+            		method:"Get",
+            		//data es opcional si en la funcion del controlador no recibe parametros no ahy data
+            		success:function(response){
+            			//se procesa la respuesta del back end o servidor
+            			//y se cargan los valores obtenidos en  la respuesta a la tabla , a su tbody
+            			
+            			
+            			
+            			
+            			//se recorren los elementos del aray
+            			//retornado como respuesta
+            			response.forEach(i=>{
+            				//concatenando los valores 
+            			$("#tdatos").append(""
+            					+"<tr>"
+            					+"<td>"+id.id+"</td>"
+            					+"<td>"+id.nombre+"</td>"
+            					+"<td>"+id.direcion+"</td>"
+            					+"<td>"+id.telefono+"</td>"
+            					+"<td>"
+            					+"<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal'>modificar</button>" 
+            					+"</td>" 
+            					+ "<td>" 
+            					+"<button type='button' class='btn btn-danger'  data-toggle='modal' data-target='#delModal'>eliminar</button>"
+            					+"</td>"
+            					+"</tr>");
+            				
+            			});		
+            		},
+            		error:function(response){
+            			alert("error en la peticion"+ response);
+            		},
+            	});
+            }       
+        </script>
+</body>
+</html>
